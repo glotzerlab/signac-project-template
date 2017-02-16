@@ -1,0 +1,8 @@
+.DS_Store
+*.pyc
+_*
+*.ipynb_checkpoints
+signac.rc
+signac_statepoints.json
+workspace/*
+status.txt
