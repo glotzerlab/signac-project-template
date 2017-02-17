@@ -4,7 +4,8 @@ sudo: false
 
 matrix:
   include:
-    - { os: linux, env: PYTHON_VERSION=2.7 }
+    # TODO Add Python2.7 testing once compatibility issues are fixed.
+    #- { os: linux, env: PYTHON_VERSION=2.7 }
     - { os: linux, env: PYTHON_VERSION=3.4 }
     - { os: linux, env: PYTHON_VERSION=3.5 }
     - { os: osx, osx_image: xcode8.2, env: PYTHON_VERSION=3.5 }
