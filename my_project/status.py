@@ -8,7 +8,11 @@ from .environment import get_environment
 
 
 def main(args):
-    scheduler = get_environment().get_scheduler()
+    try:
+        scheduler = get_environment().get_scheduler()
+    except AttributeError:
+        scheduler = None
+
     project = get_project()
     with Pool() as pool:
         project.print_status(scheduler, pool=pool, **vars(args))
