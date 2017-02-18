@@ -1,0 +1,30 @@
+language: generic
+
+sudo: false
+
+matrix:
+  include:
+    # TODO Add Python2.7 testing once compatibility issues are fixed.
+    #- { os: linux, env: PYTHON_VERSION=2.7 }
+    - { os: linux, env: PYTHON_VERSION=3.4 }
+    - { os: linux, env: PYTHON_VERSION=3.5 }
+    # Mac OS-X testing disabled since conda/glotzer/hoomd does not run
+    # on any of the Travis CI images.
+    #- { os: osx, env: PYTHON_VERSION=3.5 }
+
+install:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install md5sha1sum; fi
+  - source devtools/travis-ci/install_conda.sh
+  - conda config --add channels glotzer
+  - conda config --add channels conda-forge
+  - conda create -y -n travis_env python=$PYTHON_VERSION signac hoomd gsd jupyter matplotlib networkx
+  - source activate travis_env
+  # TODO: Replace below with conda install once merge into master
+  - pip install git+https://bitbucket.org/glotzer/signac-flow.git@develop
+
+script:
+  - python -m my_project.init 0
+  - python -m my_project.status -d
+  - python scripts/run.py auto
+  - python -m my_project.status -d
+  - python -m jupyter nbconvert --to html --execute analysis/notebook.ipynb
