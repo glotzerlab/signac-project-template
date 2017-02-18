@@ -20,7 +20,6 @@ install:
   - source activate travis_env
   # TODO: Replace below with conda install once merge into master
   - pip install git+https://bitbucket.org/glotzer/signac-flow.git@develop
-  - sysctl -n machdep.cpu
 
 script:
   - python -m my_project.init 0
