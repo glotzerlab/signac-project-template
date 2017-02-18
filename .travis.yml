@@ -8,8 +8,9 @@ matrix:
     #- { os: linux, env: PYTHON_VERSION=2.7 }
     - { os: linux, env: PYTHON_VERSION=3.4 }
     - { os: linux, env: PYTHON_VERSION=3.5 }
-    - { os: osx, osx_image: xcode8.1, env: PYTHON_VERSION=3.5 }
-    - { os: osx, env: PYTHON_VERSION=3.5 }
+    # Mac OS-X testing disabled since conda/glotzer/hoomd does not run
+    # on any of the Travis CI images.
+    #- { os: osx, env: PYTHON_VERSION=3.5 }
 
 install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install md5sha1sum; fi
