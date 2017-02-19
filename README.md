@@ -68,14 +68,17 @@ Other modules:
 
 # Merge upstream updates
 
-If you already have a project repository and you want to merge an updated template, you can either sync the repository online or follow these steps:
+To synchronize your fork with the upstream repository, follow these steps:
 ```
 cd your_project
-git remote add template https://$USER@bitbucket.org/glotzer/signac-project-template.git
-git fetch template
-git merge template/master 
+git remote add upstream https://github.com/glotzerlab/signac-project-template.git
+git fetch upstream
 ```
-If you have many conflicts it might be easier to do a rebase:
+Then either merge
 ```
-git rebase template/master
+git merge upstream/master
+```
+or rebase to synchronize your local master branch with the upstream master branch.
+```
+git rebase upstream/master
 ```
