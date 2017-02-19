@@ -51,14 +51,6 @@ my_project.environment module
     :undoc-members:
     :show-inheritance:
 
-my_project.header module
-------------------------
-
-.. automodule:: my_project.header
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 my_project.switch_workspace module
 ----------------------------------
 
