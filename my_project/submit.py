@@ -7,7 +7,7 @@ from .project import get_project
 from . import environment
 
 
-def main(env, args):
+def main(args):
     args.mode = 'gpu' if args.gpu else 'cpu'
 
     env = environment.get_environment(test=args.test)
@@ -41,7 +41,6 @@ if __name__ == '__main__':
     group.add_argument(
         '--ppn',
         type=int,
-        default=getattr(env, 'cores_per_node', None),
         help="Specify the number of processors allocated to each node.")
     parser.add_argument(
         '-t', '--test',
@@ -50,4 +49,4 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     logging.basicConfig(level=logging.INFO)
-    main(env, args)
+    main(args)

@@ -25,6 +25,7 @@ install:
 script:
   - python -m my_project.init 0
   - python -m my_project.status -d
+  - python -m my_project.submit --test --ppn 1
   - python scripts/run.py auto
   - python -m my_project.status -d
   - python -m jupyter nbconvert --to html --execute analysis/notebook.ipynb
