@@ -78,7 +78,8 @@ Then either merge
 ```
 git merge upstream/master
 ```
-or rebase to synchronize your local master branch with the upstream master branch.
+or rebase
 ```
 git rebase upstream/master
 ```
+to synchronize your local master branch with the upstream master branch.
