@@ -8,7 +8,7 @@ The template project features the generation of a p-V phase diagram of a simulat
 The LJ fluid is sampled via molecular dynamics using the HOOMD-blue particle simulation toolkit.
 
 The [signac](https://signac.readthedocs.io) data management framework itself does not enforce any specific workflow.
-Basic workflow management functions are implemented in the complementary [signac-flow](https://bitbucket.org/glotzer/signac-flow) package, which provides the so called `FlowProject` class.
+Basic workflow management functions are implemented in the complementary [signac-flow](https://bitbucket.org/glotzer/signac-flow) package, which provides the `FlowProject` class.
 This template project is designed to streamline and demonstrate how to specialize a `FlowProject` to implement a workflow on top of a **signac** project.
 
 Beginners should start by looking through the [signac documentation](https://signac.readthedocs.io), especially the [tutorial](https://signac.readthedocs.io/en/latest/tutorial.html).
@@ -34,10 +34,10 @@ The `auto` operation is a special *meta-operation*, which will execute all defin
 
 We can checkout the project's status with the `status.py` module.
 ```
-python -m my_project.status --detailed -p p
+python -m my_project.status --detailed --parameters p
 ```
 We use the ``--detailed`` flag to show the labels explicitly for each job.
-The `-p` argument specifies state point parameters that should be shown in the status overview.
+The ``--parameters`` (``-p``) pargument specifies state point parameters that should be shown in the status overview.
 In this case we specify to show the `p` variable, which stands for pressure.
 
 Finally, we can analyze the data using a jupyter notebook, simply execute ``jupyter notebook`` within the project's root or `scripts/` directory and execute the `scripts/analysis.ipynb` notebook.
@@ -46,23 +46,22 @@ Finally, we can analyze the data using a jupyter notebook, simply execute ``jupy
 
 The following list is a brief overview of the modules and scripts to be found within the project template.
 
-Modules, that need to be modified by the user:
+Modules, that are usually modified by the user:
 
  * ``my_project/init.py`` - **Init**ialize the project and jobs
  * ``my_project/project.py`` - Configure the **project** operation flow
- * ``scripts/operations.py`` - Definition of project **operations**
+ * ``scripts/operations.py`` - Definition of python-based **operations**
 
 Modules, that are usually executed by the user:
 
- * ``scripts/run.py`` - **Run** project operations
- * ``my_project/submit.py`` - **Submit** operation(s) to a (cluster) scheduler
+ * ``scripts/run.py`` - **Run** operations defined in the ``operations.py`` module
  * ``my_project/status.py`` - Display the project's **status**
+ * ``my_project/submit.py`` - **Submit** operation(s) to a (cluster) scheduler
  * ``my_project/swith_workspace.py`` - Switch the project's **workspace**
 
 Other modules:
 
-  * ``my_project/header.py`` - Cluster submission **header** files
-  * ``my_project/environment.py`` - **Environment** detection and definition
+  * ``my_project/environment.py`` - **Environment** definitions
   * ``my_project/util/misc.py`` - **Misc**ellaneous utility functions
   * ``my_project/util/hoomd.py`` - Various utility functions to be used with **HOOMD**-blue
   * ``my_project/util/tabulate.py`` - Functions for **table** formatting
