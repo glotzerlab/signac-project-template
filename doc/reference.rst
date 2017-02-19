@@ -49,6 +49,7 @@ Combining the concepts of *classification* and *operations* we can define the wo
 .. code-block:: python
 
    from flow import FlowProject
+   from flow import JobOperation
 
    class MyProject(FlowProject):
 
@@ -60,12 +61,18 @@ Combining the concepts of *classification* and *operations* we can define the wo
 
        def next_operation(self, job):
           labels = set(self.classify(job))
+
+          def op(name):
+              return JobOperation(name, job, 'python scripts/run.py {} {}'.format(name, job))
+
           if 'initialized' not in labels:
-              return 'initialize'
+              return op('initialize')
           if 'processed' not in labels:
-              return 'process'
+              return op('process')
 
 The :py:meth:`~flow.FlowProject.next_operation` returns the **default operation** to execute **next** for a job in the identified state.
+This operation is a command, which can be executed on the command line.
+In the template, all operations are defined in the ``scripts/operations.py`` module and are executed by the ``scripts/run.py`` script.
 
 We can get a quick overview of our project's status via the :py:meth:`~flow.FlowProject.print_status()` method:
 
@@ -118,21 +125,15 @@ To submit job-operations to a scheduler, call the :py:meth:`~flow.FlowProject.su
 
 The :py:meth:`~flow.FlowProject.submit` method will schedule the execution of operations for specified jobs by generating and submitting a *jobscript* to the scheduler.
 
-Every *jobscript* has the same structure:
+Every *job submission script* has the same basic structure:
 
-  1. scheduler header
-  2. project header
-  3. operations
+  1. environment dependent header (e.g. scheduler options)
+  2. operation-agnostic header (e.g. switching into the project root directory)
+  3. commands to execute operations
 
-The *scheduler header* will vary across different scheduler implementations and can be configured via the :py:mod:`.header` module.
-The *header* contains commands which should only be executed *once* per submission, such as setting up the correct software environment.
+The *scheduler header* will vary across different scheduler implementations and should be configured via the :py:mod:`.environment` module.
 
-By default only those job-operations are submitted where the *operation* is equal to the *next operation*.
-This policy is implemented within the :py:meth:`~flow.FlowProject.eligible` method.
-Think of it as *eligible for submission*.
-You can of course change the function to implement whatever policy you prefer.
-
-In summary, we can execute *operations* defined in the :py:mod:`.operations` module either directly or we can submit them to a scheduler:
+In summary, if we only execute *operations* defined in the :py:mod:`.operations` module, we can run them either directly or submit them to a scheduler:
 
   .. code-block:: bash
 

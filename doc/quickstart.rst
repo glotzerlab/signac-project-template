@@ -19,13 +19,14 @@ The Basics
 This is a list of key things you need to know in order to efficiently work with this project:
 
   1. All modules are part of the :py:mod:`my_project` package located in the directory of the same name.
-  2. Data Space operations are implemented within the ``scripts/operations.py`` module.
-  3. The project execution logic is implemented within the :py:class:`.project.MyProject` class.
-  4. All jobs are classified via ``str``-labels with the :py:meth:`.MyProject.classify` method.
-  5. The *next operation* is identified via the :py:meth:`.MyProject.next_operation` method.
-  6. Job-operations may be executed directly via the ``scripts/run.py`` script.
-  7. Job-operations may be submitted to a scheduler via the :py:mod:`.submit` module.
-  8. The project **status** may be examined by executing the :py:mod:`.status` module.
+  2. The project execution logic is implemented within the :py:class:`.project.MyProject` class.
+  3. All jobs are classified via ``str``-labels with the :py:meth:`.MyProject.classify` method.
+  4. The *next operation* is identified via the :py:meth:`.MyProject.next_operation` method.
+  5. The project **status** may be examined by executing the :py:mod:`.status` module.
+  6. Job-operations may be submitted to a scheduler via the :py:mod:`.submit` module.
+  7. Python-based operations are implemented within the ``scripts/operations.py`` module.
+  8. Operations defined in the ``scripts/operations.py`` module can be executed directly via the
+     ``scripts/run.py`` script.
 
 A complete overview of all modules and functions an be found in the :ref:`project_api` chapter.
 
@@ -91,7 +92,12 @@ Instead of running the operations directly, we can also submit them to a schedul
 In this case we explicitly specified which operation to submit.
 If we omit the argument, the *next operation* for each job will be submitted.
 
-.. note::
+.. tip::
 
-    The scheduler is determined from the environment with the :py:mod:`.environment` module.
-    If your environment does not have a scheduler or it is not configured, signac-flow will default to a *fake scheduler*, which prints the job scripts to screen.
+    Use the ``--pretend`` argument to print the submission script to the screen instead
+    of submitting it during debugging.
+
+The scheduler is determined from the environment with the :py:mod:`.environment` module.
+If your environment does not have a scheduler or it is not configured, signac-flow will raise an exception.
+However, you can use a test environment with ``--test`` argument, which will mock an
+actual submission process.
