@@ -12,7 +12,14 @@ Basic workflow management functions are implemented in the complementary [signac
 This template project is designed to streamline and demonstrate how to specialize a `FlowProject` to implement a workflow on top of a **signac** project.
 
 Beginners should start by looking through the [signac documentation](https://signac.readthedocs.io), especially the [tutorial](https://signac.readthedocs.io/en/latest/tutorial.html).
-A detailed description of the individual components found in this template project are in the [doc/](doc/) folder.
+
+Documentation for the template itself is in the [doc/](doc/) folder.
+You can build the documentation, which contains a detailed description of all components, with:
+
+```
+$ cd doc
+make html
+```
 
 # Quickstart
 
