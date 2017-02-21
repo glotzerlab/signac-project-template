@@ -26,7 +26,7 @@ def main(args, random_seed):
                     r_cut=2.5,
 
                     # random seed
-                    seed=random_seed*replication_index,
+                    seed=random_seed*(replication_index + 1),
 
                     # thermal energy
                     kT=1.0,
