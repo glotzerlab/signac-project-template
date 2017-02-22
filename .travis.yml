@@ -17,10 +17,8 @@ install:
   - source devtools/travis-ci/install_conda.sh
   - conda config --add channels glotzer
   - conda config --add channels conda-forge
-  - conda create -y -n travis_env python=$PYTHON_VERSION signac hoomd gsd jupyter matplotlib networkx
+  - conda create -y -n travis_env python=$PYTHON_VERSION signac signac-flow hoomd gsd jupyter matplotlib
   - source activate travis_env
-  # TODO: Replace below with conda install once merge into master
-  - pip install git+https://bitbucket.org/glotzer/signac-flow.git@develop
 
 script:
   - python -m my_project.init 0
