@@ -64,7 +64,7 @@ Modules, that are usually executed by the user:
  * ``scripts/run.py`` - **Run** operations defined in the ``operations.py`` module
  * ``my_project/status.py`` - Display the project's **status**
  * ``my_project/submit.py`` - **Submit** operation(s) to a (cluster) scheduler
- * ``my_project/swith_workspace.py`` - Switch the project's **workspace**
+ * ``my_project/switch_workspace.py`` - Switch the project's **workspace**
 
 Other modules:
 
