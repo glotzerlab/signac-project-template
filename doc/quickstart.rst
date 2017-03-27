@@ -39,31 +39,74 @@ Initialize the data space using a random number or string, e.g. your username:
 
 .. code-block::  bash
 
-    $ python my_project.init $USER  # (or $ python my_project.init 42)
+    $ python -m my_project.init $USER  # (or $ python my_project.init 42)
 
 You can check the status of your project:
 
 .. code-block:: bash
 
-    $ python my_project.status -d
+    $ python -m my_project.status -d
     Query scheduler...
     Determine job stati...
     Generate output...
 
     Status project 'MyProject':
-    Total # of jobs: 5
+    Total # of jobs: 10
+    label    progress
+    -------  ----------
+
+    Detailed view:
+    job_id                            S    next_op     labels
+    --------------------------------  ---  ----------  --------
+    6c57f630f0b62d449349ee2322cc16b6  U !  initialize
+    e0cf9aa968b48b22c66bbfda41d46129  U !  initialize
+    1677c153f81290d2e6e8b97a4f1d4297  U !  initialize
+    a230567b8a54d5c44d88b806b390b426  U !  initialize
+    3904431a51a3d3e4a31358f24b69d43f  U !  initialize
+    ...
+
+    Abbreviations used:
+    !: requires_attention
+    S: status
+    U: unknown
+
+We initialize the jobs for hoomd-blue_:
+
+.. _hoomd-blue: https://hoomd-blue.readthedocs.io
+
+.. code-block:: bash
+
+    $ python scripts/run.py initialize
+
+Notice that the next_op and labels have changed if you check the status again:
+
+.. code-block:: bash
+
+    $ python -m my_project.status -d
+    Query scheduler...
+    Determine job stati...
+    Generate output...
+
+    Status project 'MyProject':
+    Total # of jobs: 10
     label        progress
     -----------  --------------------------------------------------
     initialized  |########################################| 100.00%
 
     Detailed view:
-    job_id                            status    next_operation    labels
-    --------------------------------  --------  ----------------  -----------
-    8921709098d990fc70b19895653b7f01  unknown   estimate          initialized
-    8deb24c26dcb0bf0322cbf45c6b3198f  unknown   estimate          initialized
-    b76e21a18c46a90ed52ec3f1e2cd6250  unknown   estimate          initialized
-    ed41e3073b4a4133c05bf7ed050ebceb  unknown   estimate          initialized
-    fc89c69cb0f09b84f0b7f08c39bde326  unknown   estimate          initialized
+    job_id                            S    next_op    labels
+    --------------------------------  ---  ---------  -----------
+    6c57f630f0b62d449349ee2322cc16b6  U !  estimate   initialized
+    e0cf9aa968b48b22c66bbfda41d46129  U !  estimate   initialized
+    1677c153f81290d2e6e8b97a4f1d4297  U !  estimate   initialized
+    a230567b8a54d5c44d88b806b390b426  U !  estimate   initialized
+    3904431a51a3d3e4a31358f24b69d43f  U !  estimate   initialized
+    ...
+
+    Abbreviations used:
+    !: requires_attention
+    S: status
+    U: unknown
 
 Compute the ideal gas estimate, just like in the tutorial:
 
@@ -71,13 +114,13 @@ Compute the ideal gas estimate, just like in the tutorial:
 
     $ python scripts/run.py estimate
 
-Or execute a molecular dynamics simulation using hoomd-blue_ with:
-
-.. _hoomd-blue: https://hoomd-blue.readthedocs.io
+Execute a molecular dynamics simulation using hoomd-blue_ with:
 
 .. code-block:: bash
 
-    $ python scripts/run.py equilibrate 8921
+    $ python scripts/run.py sample 6c57
+
+where *6c57* is the first few characters of the *job id*.
 
 .. note::
 
@@ -87,7 +130,7 @@ Instead of running the operations directly, we can also submit them to a schedul
 
 .. code-block:: bash
 
-    $ python my_project.submit -j equilibrate
+    $ python -m my_project.submit -j sample
 
 In this case we explicitly specified which operation to submit.
 If we omit the argument, the *next operation* for each job will be submitted.

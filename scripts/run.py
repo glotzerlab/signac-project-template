@@ -29,7 +29,7 @@ def main(args):
     for jobid in args.jobid:
         job = project.open_job(id=jobid)
         try:
-            # The opreation is assumed to be defined in the operations module.
+            # The operation is assumed to be defined in the operations module.
             operation = getattr(operations, args.operation)
         except AttributeError:
             raise KeyError("Unknown operation '{}'.".format(args.operation))

@@ -39,7 +39,7 @@ def main(args, random_seed):
             project.open_job(statepoint).init()
             statepoints_init.append(statepoint)
 
-    # Writing statpoints to hash table as backup
+    # Writing statepoints to hash table as backup
     project.write_statepoints(statepoints_init)
 
 
